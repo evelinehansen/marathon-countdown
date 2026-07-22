@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Marathon Countdown</title>
+  <meta name="description" content="A marathon orientation tool: where you roughly should be right now, and how the major training plans disagree at this point.">
+  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="app-header">
+      <h1 class="app-title">Marathon<span class="app-title-accent">Countdown</span></h1>
+      <div class="header-actions">
+        <button id="export-btn" class="btn">Export</button>
+        <button id="import-btn" class="btn">Import</button>
+        <input id="import-file" type="file" accept="application/json" hidden>
+      </div>
+      <p id="backup-status" class="backup-status">Last backup: never</p>
+    </header>
+
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button class="tab" role="tab" aria-selected="true" data-tab="now">Now</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="plans">Plans</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="principles">Principles</button>
+      <button id="about-btn" class="btn about-pill">About</button>
+    </nav>
+
+    <main>
+      <section id="tab-now" class="tab-panel" role="tabpanel"></section>
+      <section id="tab-plans" class="tab-panel" role="tabpanel" hidden></section>
+      <section id="tab-principles" class="tab-panel" role="tabpanel" hidden></section>
+    </main>
+  </div>
+
+  <!-- Settings: side panel on desktop, bottom sheet on mobile -->
+  <div id="panel-backdrop" class="panel-backdrop"></div>
+  <aside id="settings-panel" class="panel" aria-label="Settings" aria-hidden="true">
+    <div class="panel-head">
+      <h2>Settings</h2>
+      <button id="settings-done" class="btn primary">Done</button>
+    </div>
+    <form id="settings-form">
+      <div class="field">
+        <label class="field-label" for="race-date">Race date</label>
+        <input type="date" id="race-date" name="raceDate" required>
+      </div>
+      <div class="field">
+        <label class="field-label" for="weekly-volume">Current weekly volume (km, optional)</label>
+        <input type="number" id="weekly-volume" name="weeklyVolumeKm" min="0" max="300" step="1" inputmode="numeric" placeholder="e.g. 35">
+        <p class="field-hint">Used only to mark where you sit against the plans. Leave blank to skip.</p>
+      </div>
+      <div class="field">
+        <label class="field-label" for="block-weeks">Your structured block length</label>
+        <select id="block-weeks" name="blockWeeks">
+          <option value="16">16 weeks</option>
+          <option value="18" selected>18 weeks</option>
+          <option value="20">20 weeks</option>
+        </select>
+        <p class="field-hint">When your own build begins before race day. The published plans compared here are all 18 weeks.</p>
+      </div>
+      <p class="field-hint">Changes save automatically to this browser.</p>
+    </form>
+  </aside>
+
+  <!-- About modal -->
+  <div id="about-modal" class="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-label="About Marathon Countdown">
+      <h2>About</h2>
+      <p>Marathon Countdown is an orientation tool, not a coach. It tells you where you roughly are on the way to your race, and how the major published plans would treat this same point in time. For the real day by day schedules, go to each plan's own source.</p>
+      <p>Everything runs in your browser. Your settings are saved in this browser's local storage and are never sent anywhere. There are no accounts, no cookies, and no tracking. Local storage is readable by other software on your device and can be cleared by the browser, so use Export to keep a backup of your settings.</p>
+      <p>The plan comparisons are approximate characterizations that link out to each source. They are not the real schedules and cannot reproduce them.</p>
+      <button id="about-close" class="btn modal-close">Close</button>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
