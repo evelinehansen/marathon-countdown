@@ -115,15 +115,6 @@ label { display: block; }
   margin-right: auto;
 }
 .app-title-accent { color: var(--sage); }
-.header-actions { display: flex; gap: 0.5rem; }
-.backup-status {
-  font-size: 0.85rem; color: var(--ink-soft);
-  width: auto;
-}
-/* Below 720px the status drops to its own full-width line, last in the header. */
-@media (max-width: 720px) {
-  .backup-status { width: 100%; order: 3; }
-}
 
 /* ---- Tab bar ---- */
 .tabs {
@@ -149,6 +140,10 @@ label { display: block; }
   font-family: var(--serif); font-weight: 600;
   font-size: 2.1rem; line-height: 1.15; color: var(--ink);
   letter-spacing: -0.01em;
+}
+/* One notch smaller on narrow screens so "X weeks until race day" fits a line. */
+@media (max-width: 620px) {
+  .countdown { font-size: 1.6rem; }
 }
 .countdown-sub { color: var(--ink-soft); margin-top: 0.35rem; font-size: 0.95rem; }
 .countdown-num { color: var(--sage-deep); }

@@ -7,10 +7,7 @@ import {
   getWeekComparison, round5, phaseFor, CURVES,
   parseISODate, blockStartDate
 } from "./engine.js";
-import {
-  loadSettings, saveSettings, hasSettings,
-  backupStatusText, exportToFile, parseImport
-} from "./storage.js";
+import { loadSettings, saveSettings, hasSettings } from "./storage.js";
 
 // ---- Small helpers ----
 
@@ -45,13 +42,7 @@ const TIER_LABEL = { beginner: "Beginner", intermediate: "Intermediate", advance
 let settings = loadSettings();
 let currentTab = "now";
 
-// ---- Backup status ----
-
-function renderBackupStatus() {
-  $("#backup-status").textContent = backupStatusText();
-}
-
-// ---- Toast (for save failures and import results) ----
+// ---- Toast (for save failures) ----
 
 let toastTimer = null;
 function toast(message, warn = false) {
@@ -437,38 +428,6 @@ function applySettingsFromForm() {
 }
 
 // ============================================================
-//  Export / Import
-// ============================================================
-
-function doExport() {
-  if (!hasSettings()) {
-    toast("Set your race date first, then export.");
-    return;
-  }
-  exportToFile(settings);
-  renderBackupStatus();
-  toast("Settings exported.");
-}
-
-function doImport(file) {
-  const reader = new FileReader();
-  reader.onload = () => {
-    try {
-      const imported = parseImport(String(reader.result));
-      settings = imported;
-      const ok = saveSettings(settings);
-      if (!ok) { toast("Imported, but could not save to this browser.", true); }
-      else { toast("Settings imported."); }
-      switchTab("now");
-    } catch (e) {
-      toast(e.message || "Could not read that file.", true);
-    }
-  };
-  reader.onerror = () => toast("Could not read that file.", true);
-  reader.readAsText(file);
-}
-
-// ============================================================
 //  Wiring
 // ============================================================
 
@@ -491,15 +450,6 @@ function wire() {
     if (e.target === $("#about-modal")) $("#about-modal").hidden = true;
   });
 
-  // Export / Import
-  $("#export-btn").addEventListener("click", doExport);
-  $("#import-btn").addEventListener("click", () => $("#import-file").click());
-  $("#import-file").addEventListener("change", e => {
-    const file = e.target.files && e.target.files[0];
-    if (file) doImport(file);
-    e.target.value = "";   // allow re-importing the same file
-  });
-
   // Close panels / modal on Escape
   document.addEventListener("keydown", e => {
     if (e.key === "Escape") {
@@ -510,6 +460,5 @@ function wire() {
 }
 
 // ---- Boot ----
-renderBackupStatus();
 wire();
 switchTab("now");

@@ -13,12 +13,6 @@
   <div class="wrap">
     <header class="app-header">
       <h1 class="app-title">Marathon<span class="app-title-accent">Countdown</span></h1>
-      <div class="header-actions">
-        <button id="export-btn" class="btn">Export</button>
-        <button id="import-btn" class="btn">Import</button>
-        <input id="import-file" type="file" accept="application/json" hidden>
-      </div>
-      <p id="backup-status" class="backup-status">Last backup: never</p>
     </header>
 
     <nav class="tabs" role="tablist" aria-label="Sections">
@@ -70,7 +64,7 @@
     <div class="modal" role="dialog" aria-modal="true" aria-label="About Marathon Countdown">
       <h2>About</h2>
       <p>Marathon Countdown is an orientation tool, not a coach. It tells you where you roughly are on the way to your race, and how the major published plans would treat this same point in time. For the real day by day schedules, go to each plan's own source.</p>
-      <p>Everything runs in your browser. Your settings are saved in this browser's local storage and are never sent anywhere. There are no accounts, no cookies, and no tracking. Local storage is readable by other software on your device and can be cleared by the browser, so use Export to keep a backup of your settings.</p>
+      <p>Everything runs in your browser. Your settings are saved in this browser's local storage and are never sent anywhere. There are no accounts, no cookies, and no tracking. Local storage is readable by other software on your device and can be cleared by the browser, in which case you would simply set your race date again.</p>
       <p>The plan comparisons are approximate characterizations that link out to each source. They are not the real schedules and cannot reproduce them.</p>
       <button id="about-close" class="btn modal-close">Close</button>
     </div>

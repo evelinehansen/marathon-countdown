@@ -43,8 +43,9 @@ There are no accounts, no cookies, no analytics, and no network requests while t
 tool runs.
 
 Local storage is readable by other software on your device and can be cleared by
-the browser (some browsers evict it after a period of disuse). Use **Export** to
-save a small JSON backup of your settings, and **Import** to restore it.
+the browser (some browsers evict it after a period of disuse). If that happens,
+you just set your race date again. The settings are a race date, a volume number,
+and a block length, so there is nothing heavier to back up.
 
 ## Running it
 
@@ -68,6 +69,6 @@ from the branch, and the site is live at its Pages URL.
 - `styles.css` - all styling.
 - `plans.js` - the plan characterizations and shape parameters (edit plans here).
 - `engine.js` - pure functions: the curves, phases, and comparison logic.
-- `storage.js` - load and save settings, export and import.
+- `storage.js` - load and save settings in local storage.
 - `app.js` - rendering and interaction.
 - `icon.png` - the app icon.
